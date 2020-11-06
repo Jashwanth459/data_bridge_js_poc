@@ -1,0 +1,36 @@
+.container {
+    height: auto;
+    width: initial;
+    background-color: rgb(223, 221, 221);
+    /* display: inline-flex; */
+}
+
+.posts_list {
+    margin: 0px 250px;
+    padding-inline-start: 0px;
+    background-color: rgba(245, 224, 245, 0.774);
+    width: 60%;
+}
+
+.post_card {
+    border-bottom: 0.5px solid rgb(145, 117, 117);
+    padding-top: 10px;
+}
+
+.prev_image {
+    margin-left: -160px;
+    position: absolute;
+    margin-top: -100px;
+    border-radius: 10px solid red;
+}
+
+.next_image {
+    margin-left: 155px;
+    position: absolute;
+    margin-top: -100px;
+}
+
+/* p {
+    color:rgb(37, 29, 29); 
+    font-size: 12px;
+} */

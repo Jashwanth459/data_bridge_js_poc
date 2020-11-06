@@ -1,0 +1,16 @@
+.header {
+    padding: 3px;
+    text-align: center;
+    background: #789289;
+    color: white;
+    font-size: 20px;
+    margin-top: -10px;
+    border-radius: 10px;
+  }
+
+  p {
+      margin-top: -20px;
+      color:rgb(213, 247, 150);
+      font-size: 20px;
+  }
+
