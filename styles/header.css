@@ -14,3 +14,19 @@
       font-size: 20px;
   }
 
+  .add_new_post {
+    background-color: #f9ceb0;
+    color: #540844;
+    border: 2px solid #a1b5e0;
+    font-size: 20px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+  }
+
+  .add_new_post:hover {
+    background-color: #ebebeb;
+    color: #7a4d70;
+    border: 2px solid #3b7c39;
+    font-weight: 700;
+  }
+

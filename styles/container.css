@@ -17,6 +17,20 @@
     padding-top: 10px;
 }
 
+.post_message {
+    color: #000b42;
+    padding: 20px 60px;
+}
+
+.post_message:hover {
+    color: #0e8575;
+}
+
+.post_title {
+    color: #4d924c;
+    padding: 5px 60px;
+}
+
 .prev_image {
     margin-left: -160px;
     position: absolute;

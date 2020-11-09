@@ -17,8 +17,18 @@
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+    width: 40%;
+    /* height: 60%; */
+  }
+  
+  .modal-content h2 {
+    padding: 20px 80px;
+    align-items: center;
+    padding: 20px;
+    margin: 5px 20px;
+    /* width: 80%; */
+    /* border: 1px solid #888; */
+    border-bottom: 2px solid rgb(250, 199, 89);
   }
   
   .close {
@@ -33,4 +43,29 @@
     color: #000;
     text-decoration: none;
     cursor: pointer;
+  }
+
+  form {
+    padding: 20px;
+    text-align: start;
+  }
+
+  form label {
+    margin-left: 4px;
+    font-weight: bold;
+  }
+
+  form #post_title {
+    padding: 7px;
+    margin: 10px 0px;
+  }
+
+  form #post_submit {
+    align-items: center;
+  }
+
+  form #post_description {
+    padding: 5px;
+    margin: 7px 0px;
+    align-items: initial;
   }
