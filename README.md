@@ -17,4 +17,5 @@ json-server
 2. checkout to the data_bridge_js_poc directory 'cd data_bridge_js_poc'
 3. npm i
 4. 'npm i express'; 'npm i nodemon --save-dev'; 'npm i json-server'
+5. 'json-server --watch ./statics/data.json'
 5. 'npm run start' will start the application
