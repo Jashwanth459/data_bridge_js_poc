@@ -1,4 +1,8 @@
-function init(page)
+/**
+ * it is used for initialsing/ updating content in complete application
+ * @param {Page Information} page
+ */
+function render(page)
 {
     document.getElementById('spinner').style = 'display: unset'
     fetch('http://localhost:3000/data', {mode: 'cors'})
@@ -8,39 +12,40 @@ function init(page)
     .then((res) => {
         window.posts_list = res
         prepareHTML(res, page)
-        console.log(res);
     })
     .catch(function (error) {
-        console.log(error);
+        console.log('hey you ended up with error: ', error);
     })
 }
-setTimeout(init, 2000)
+// Initialising functionality when application starts
+setTimeout(render, 2000)
 
+/**
+ * assists preparing HTML on initilisation, updation
+ * @param {Data response from data source} res 
+ * @param {Page Inforamtion} page 
+ */
 function prepareHTML(res, page) {
     var container = document.getElementById('container')
     var posts_list = document.createElement('ul')
     posts_list.id = 'posts_list'
     posts_list.className = 'posts_list'
     document.getElementById('spinner').style = 'display: none'
-    console.log('hey there', page)
-    let pageNumber  = page ? Number(page && page[2]) ? page[2] : 4 : 1
-    // let pageNumber  = Number(page && page[2]) || 1
-    let dataLength = res.length
-    let recentPosts = res.reverse()
-    window.dataLength = dataLength
-    console.log('length is', dataLength%2)
-    // let roundedDataLength = dataLength%2 == 0 ? dataLength : dataLength+1
-    if(pageNumber*2 <= dataLength && pageNumber*2 > dataLength-2 && pageNumber == 1) {
+    const PAGENUMBER  = page ? Number(page && page[2]) ? page[2] : 4 : 1
+    var dataLength = res.length
+    var recentPosts = res.reverse()
+    window.dataLength = Number(res[0].id)
+
+    if(PAGENUMBER*2 <= dataLength && PAGENUMBER*2 > dataLength-2 && PAGENUMBER == 1) {
         let prev_button = document.getElementById('page_prev')
         prev_button.style = 'background-color: #bbbbbb;'
         let next_button = document.getElementById('next_prev_2')
         next_button.style = 'background-color: #bbbbbb;'
-
-    } else if (pageNumber == 1) {
+    } else if (PAGENUMBER == 1) {
         if (page && page[2]) {
             let prev_button = document.getElementById(`page_prev_1`)
             prev_button.id = 'page_prev'
-            let next_button = page && document.getElementById('page_next_3')
+            let next_button = dataLength == 4 || dataLength == 3 ? document.getElementById('page_next') : document.getElementById('page_next_3')
             next_button.id = `page_next_2`
             next_button.style = 'background-color: #8bc34a;'
             prev_button.style = 'background-color: #bbbbbb;'
@@ -51,20 +56,17 @@ function prepareHTML(res, page) {
             let next_button = document.getElementById('page_next_2')
             next_button.style = 'background-color: #8bc34a;'
         }
-    } else if(pageNumber*2 == dataLength || pageNumber*2 == dataLength+1) {
+    } else if(PAGENUMBER*2 == dataLength || PAGENUMBER*2 == dataLength+1) {
     
         let next_button = document.getElementById(`page_next_${page[2]}`)
-        let prev_button = document.getElementById(`page_prev_${Number(page[2])-2}`)
+        let prev_button = page[2] == 2 ? document.getElementById(`page_prev`) : document.getElementById(`page_prev_${Number(page[2])-2}`)
         prev_button.id = `page_prev_${Number(page[2])-1}`
         next_button.id = 'page_next'
         next_button.style = 'background-color: #bbbbbb;'
-        console.log('next button', next_button)
-        // console.log('button ', button)
         prev_button.style = 'background-color: #8bc34a;'
-        // console.log('button listen', button)
     } else if(page[1] == 'next') {
         let prev_button = page[2] == 2 ? document.getElementById(`page_prev`) : document.getElementById(`page_prev_${Number(page[2])-2}`)
-        if(pageNumber*2 == dataLength) {
+        if(PAGENUMBER*2 == dataLength) {
             let next_button = document.getElementById(`page_next_${page[2]}`)
             next_button.id = 'page_next'
             next_button.style = 'background-color: brown'
@@ -77,22 +79,23 @@ function prepareHTML(res, page) {
         prev_button.style = 'background-color: #8bc34a;'
     }  else if(page[1] == 'prev') {
         let prev_button = document.getElementById(`page_prev_${page[2]}`)
-        let next_button = pageNumber*2 < dataLength && pageNumber*2 >= dataLength-2   ? document.getElementById(`page_next`) : document.getElementById(`page_next_${Number(page[2])+2}`)
-        console.log(next_button)
+        let next_button = PAGENUMBER*2 < dataLength && PAGENUMBER*2 >= dataLength-2   ? document.getElementById(`page_next`) : document.getElementById(`page_next_${Number(page[2])+2}`)
         prev_button.id = `page_prev_${Number(page[2])-1}`
         next_button.id = `page_next_${Number(page[2])+1}`
         prev_button.style = 'background-color: #8bc34a;'
         next_button.style = 'background-color: #8bc34a;'
     }
 
-    for (index=(pageNumber-1)*2; index<=pageNumber*2-1 && index<res.length;index++) {
-        var element = res[index]
+    // Rendeting posts based on the page upon page initialisation or using pagination
+    for (let index=(PAGENUMBER-1)*2; index<=PAGENUMBER*2-1 && index<res.length;index++) {
+        let element = recentPosts[index]
         let listElem = document.createElement('li')
         listElem.className = 'post_card'
         listElem.id = `post_${index+1}`
-        var divElem = document.createElement('div')
+        let divElem = document.createElement('div')
+
         if (element?.media_content?.length > 0) {
-            var carouselUnorderedList = document.createElement('ul')
+            let carouselUnorderedList = document.createElement('ul')
             carouselUnorderedList.id = `carousel_${index+1}`
             carouselUnorderedList.className = 'carousel'
             element.media_content.forEach((media_element, media_index) => {
@@ -121,44 +124,58 @@ function prepareHTML(res, page) {
             prevImg.id = `prev_${index+1}_1`
             prevImg.title = 'Previous Image'
             prevImg.text = '«'
-            prevImg.addEventListener('click', carouselPrevClick)
+            prevImg.addEventListener('click', carouselButtonClick)
 
             let nextImg = document.createElement('a')
             nextImg.className = 'carousel_slide next'
             nextImg.id = `next_${index+1}_1`
             nextImg.title = 'Next Image'
             nextImg.text = '»'
-            nextImg.addEventListener('click', carouselPrevClick)
-
-            // let editPost = document.createElement('a')
-            // editPost.className = 'edit_post'
-            // editPost.title = 'Edit'
-            // editPost.text = ''
+            nextImg.addEventListener('click', carouselButtonClick)
 
             carouselUnorderedList.appendChild(prevImg)
             carouselUnorderedList.appendChild(nextImg)
-            // carouselUnorderedList.appendChild(editPost)
 
             divElem.appendChild(carouselUnorderedList)
         }
 
-        let postHead = document.createElement('h2')
-        postHead.className = 'post_title'
-        postHead.textContent = element?.title || 'Click edit to add Title'
-        // postHead.id = res.id
+        var deleteButton = document.createElement('button')
+        deleteButton.className = 'delete_button'
+        var deleteIcon = document.createElement('i')
+        deleteIcon.className = 'fa fa-trash'
+        deleteIcon.id = element.id
+        deleteButton.appendChild(deleteIcon)
+        deleteButton.id = element.id
+        deleteButton.addEventListener('click', handleDeletePost)
 
-        let postMessage = document.createElement('p')
+        var editButton = document.createElement('button')
+        editButton.className = 'edit_button'
+        var editIcon = document.createElement('i')
+        editIcon.className = 'fa fa-edit'
+        editIcon.id = element.id
+        editButton.appendChild(editIcon)
+        editButton.id = element.id
+        editButton.addEventListener('click', handleEditPost)
+        
+        divElem.appendChild(deleteButton)
+        divElem.appendChild(editButton)
+
+        var postHead = document.createElement('h2')
+        postHead.className = 'post_title'       
+
+        postHead.id = `post_title_${element.id}`
+        postHead.textContent = element?.title || 'Click edit to add Title'
+
+        var postMessage = document.createElement('p')
         postMessage.className = 'post_message'
+        postMessage.id = `post_message_${element.id}`
         postMessage.textContent = element?.message || 'Clck edit to add Description'
 
         divElem.appendChild(postHead)
         divElem.appendChild(postMessage)
 
-        console.log(listElem, 'hey')
         listElem.appendChild(divElem)
         posts_list.appendChild(listElem)
         container.appendChild(posts_list)
-        console.log(element)
-        // internal_index++;
     }
 }
