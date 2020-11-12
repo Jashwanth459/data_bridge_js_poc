@@ -11,6 +11,6 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
-app.listen(4000, () => {
-    console.log('Node basic server at 4000 port ...')
+app.listen(3001, () => {
+    console.log('Node basic server at 3001 port ...')
 });

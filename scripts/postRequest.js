@@ -44,7 +44,9 @@ const postForm = body => {
       'Content-Type': 'application/json'
     },
     body
-  });
+  }).then(() => {
+    window.open('/', '_self')
+  })
 };
   
 /**
@@ -57,6 +59,5 @@ async function handlePostSubmit(e) {
   const res = await postForm(body);
   const data = await res.json();
   window.dataLength = window.dataLength + 1;
-  window.open('http://localhost:4000/', '_self')
 }
   

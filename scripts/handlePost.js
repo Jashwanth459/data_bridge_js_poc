@@ -8,7 +8,10 @@ function handleDeletePost(e) {
     if(e.target.id && confirm('Do you really want to delete the post..?')) {
         fetch(`http://localhost:3000/data/${e.target.id}`, {
             method: 'DELETE',
-        }).then(response => { window.open('http://localhost:4000/', '_self'); return response.json();})
+        }).then(response => { 
+            window.open('/', '_self'); 
+            return response.json();
+        })
     }
 }
 
@@ -31,7 +34,7 @@ function handleSubmitPost (e) {
                 message: postDescription.value
             })
         }).then( () => {
-            window.open('http://localhost:4000/', '_self'); 
+            window.open('/', '_self');   
         })
     } else {
         return

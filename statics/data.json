@@ -142,7 +142,7 @@
         "user_id": "tom_brady",
         "user_image": "/public/tom_brady.jpeg"
       },
-      "title": "Dog lover's",
+      "title": "Dog lovers and admirers",
       "message": "The loyalty and devotion that dogs demonstrate as part of their natural instincts as pack animals closely mimics the human idea of love and friendship, leading many dog owners to view their pets as full-fledged family members.",
       "type": "post",
       "media_content": [
@@ -180,18 +180,18 @@
       "updated_time": "2010-08-02T21:27:44+0000"
     },
     {
-      "id": "8",
+      "id": "6",
       "from": {
         "name": "Will Smith",
         "user_id": "will_smith",
         "user_image": "/public/will_smith.jpeg"
       },
       "title": "What's Up",
-      "message": "This is your first post here...",
+      "message": "This is your first post here...\n                    ",
       "type": "post",
       "comments": [
         {
-          "comment_id": "8_1",
+          "comment_id": "6_1",
           "from": {
             "name": "Decaprio",
             "user_id": "decaprio",
