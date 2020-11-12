@@ -18,5 +18,5 @@ function handlePagination(e) {
     spinner.style = 'display: inline-flex'
     setTimeout(() => {
         render(TRACKING_ID)
-    }, 2000)
+    }, 1000)
 }

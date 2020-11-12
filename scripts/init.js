@@ -18,7 +18,7 @@ function render(page)
     })
 }
 // Initialising functionality when application starts
-setTimeout(render, 2000)
+setTimeout(render, 1000)
 
 /**
  * assists preparing HTML on initilisation, updation

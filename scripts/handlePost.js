@@ -17,20 +17,26 @@ function handleDeletePost(e) {
  * @param {event} e - target event of submit button
  */
 function handleSubmitPost (e) {
+    e.preventDefault();
     if (e.target.id && confirm('Do you really want to update the post..?')) {
         let postTitle = document.getElementById('post_title')
         let postDescription = document.getElementById('post_description')
         fetch(`http://localhost:3000/data/${e.target.id}`, {
             method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 title: postTitle.value,
                 message: postDescription.value
             })
+        }).then( () => {
+            window.open('http://localhost:4000/', '_self'); 
         })
     } else {
         return
     }
-    window.open('http://localhost:4000/', '_self'); 
+    
 }
 
 /**
@@ -46,11 +52,17 @@ function handleEditPost(e) {
     var postTitle = document.getElementById('post_title')
     var postDescription = document.getElementById('post_description')
     var formPopup = document.getElementById('form_popup')
-    formPopup.onsubmit = null
+    // formPopup.onsubmit = null
     postTitle.value = inputTitle.innerText
     postDescription.value = inputMessage.innerText
-    formPopup.setAttribute('onsubmit', () => {
+    console.log('comeon', formPopup)
+    formPopup.onsubmit = function() {
         handleSubmitPost(e)
-    })
+    }
+    // formPopup.addEventListener("submit", handleSubmitPost)
+    // formPopup.setAttribute('onsubmit', () => {
+    //     handleSubmitPost(e)
+    // })
+    console.log('comeon', formPopup)
 }
 
